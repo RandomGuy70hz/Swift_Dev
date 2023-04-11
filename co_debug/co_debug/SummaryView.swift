@@ -18,6 +18,7 @@ struct SummaryView: View {
     @Binding var regularOvertimeRate: String
     @Binding var holidayOvertimeRate: String
     @Binding var regularOvertime: Bool
+    @Binding var taxRate: String // tax rate
     @State private var showSummary: Bool = false
 
     // Add a clear button to clear all fields
@@ -29,6 +30,7 @@ struct SummaryView: View {
         workedStatHoliday = false
         regularOvertimeRate = ""
         holidayOvertimeRate = ""
+        taxRate = "" // clears tax field
     }
     
     var totalHours: Double {
@@ -55,8 +57,10 @@ struct SummaryView: View {
     }
 
     // Add a calculate estimated tax for 25% to add net pay to summary view
+    // new tax variable
     var estimatedTax: Double {
-        return grossPay * 0.25
+        let rate = Double(taxRate) ?? 0
+        return grossPay * (rate / 100)
     }
     
     var netPay: Double {
@@ -90,15 +94,26 @@ struct SummaryView: View {
                     presentationMode.wrappedValue.dismiss()
                 }
                 .padding()
-
             }
             .padding()
         }
+        
+        //Add the new "Done" button below the "Clear" button
+       Button("Done") {
+           presentationMode.wrappedValue.dismiss()
+       }
+       .padding() // end of new "Done" button
     }
 }
 
 struct SummaryView_Previews: PreviewProvider {
+    /*static var previews: some View {
+        SummaryView(hourlyRate: .constant("25"), regularHours: .constant("40"), regularOvertimeHours: .constant("5"), holidayOvertimeHours: .constant("0"), workedStatHoliday: .constant(false), regularOvertimeRate: .constant("1.5"), holidayOvertimeRate: .constant("2"), regularOvertime: .constant(true))*/
+        
     static var previews: some View {
-        SummaryView(hourlyRate: .constant("25"), regularHours: .constant("40"), regularOvertimeHours: .constant("5"), holidayOvertimeHours: .constant("0"), workedStatHoliday: .constant(false), regularOvertimeRate: .constant("1.5"), holidayOvertimeRate: .constant("2"), regularOvertime: .constant(true))
+        SummaryView(hourlyRate: .constant("25"), regularHours: .constant("40"), regularOvertimeHours: .constant("5"), holidayOvertimeHours: .constant("0"), workedStatHoliday: .constant(false), regularOvertimeRate: .constant("1.5"), holidayOvertimeRate: .constant("2"), regularOvertime: .constant(true), taxRate: .constant("25"))
     }
+
 }
+
+

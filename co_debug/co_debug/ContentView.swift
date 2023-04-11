@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var workedStatHoliday: Bool = false
     @State private var regularOvertimeRate: String = ""
     @State private var holidayOvertimeRate: String = ""
+    @State private var taxRate: String = "" // tax rate
     
     // Add toggle for regular overtime
     @State private var regularOvertime: Bool = false
@@ -36,10 +37,10 @@ struct ContentView: View {
                 
                 // Regular Overtime Toggle
                 Section {
-                    Toggle("Regular Overtime?", isOn: $regularOvertime)
+                    Toggle("Overtime?", isOn: $regularOvertime)
                     
                     if regularOvertime {
-                        TextField("Enter amount of hours worked in regular overtime", text: $regularOvertimeHours)
+                        TextField("Enter # of hours", text: $regularOvertimeHours)
                             .keyboardType(.decimalPad)
                     }
                 }
@@ -48,14 +49,14 @@ struct ContentView: View {
                     Toggle("Worked during a statutory holiday?", isOn: $workedStatHoliday)
                     
                     if workedStatHoliday {
-                        TextField("Enter number of hours you worked on the statutory holiday", text: $holidayOvertimeHours)
+                        TextField("Enter number # of hours", text: $holidayOvertimeHours)
                             .keyboardType(.decimalPad)
                     }
                 }
                 
                 Section(header: Text("Overtime Rates")) {
                     if regularOvertime {
-                        TextField("Enter overtime rate for regular overtime", text: $regularOvertimeRate)
+                        TextField("Enter overtime rate", text: $regularOvertimeRate)
                             .keyboardType(.decimalPad)
                     }
                     
@@ -64,6 +65,13 @@ struct ContentView: View {
                             .keyboardType(.decimalPad)
                     }
                 }
+                
+                // user input tax
+                Section(header: Text("Tax Rate")) {
+                    TextField("Enter your tax rate (%)", text: $taxRate)
+                        .keyboardType(.numberPad)
+                } // end of tax section
+
                 
                 // updated code to center button
                 Button(action: {
@@ -82,10 +90,14 @@ struct ContentView: View {
             }
             .navigationTitle("Hours Calculator")
         }
-        .sheet(isPresented: $showSummary) {
+        /*.sheet(isPresented: $showSummary) {
             SummaryView(hourlyRate: self.$hourlyRate, regularHours: self.$regularHours, regularOvertimeHours: self.$regularOvertimeHours, holidayOvertimeHours: self.$holidayOvertimeHours, workedStatHoliday: self.$workedStatHoliday, regularOvertimeRate: self.$regularOvertimeRate, holidayOvertimeRate: self.$holidayOvertimeRate, regularOvertime: self.$regularOvertime)
 
-        }
+        } */ // <- original
+        // tax sheet
+        .sheet(isPresented: $showSummary) {
+            SummaryView(hourlyRate: self.$hourlyRate, regularHours: self.$regularHours, regularOvertimeHours: self.$regularOvertimeHours, holidayOvertimeHours: self.$holidayOvertimeHours, workedStatHoliday: self.$workedStatHoliday, regularOvertimeRate: self.$regularOvertimeRate, holidayOvertimeRate: self.$holidayOvertimeRate, regularOvertime: self.$regularOvertime, taxRate: self.$taxRate)
+        } // end of tax sheet
     }
 }
 
