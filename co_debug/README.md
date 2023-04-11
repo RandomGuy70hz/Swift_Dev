@@ -1,10 +1,8 @@
-# Simple Paycheque Calcultor made with Swift
+# Simple Paycheque Calculator Made With Swift
 
 <br>
 
 ### Tested on IOS Devices
-
-<br>
 
 * This app was made entirely with ChatGPT-4.
 * Very simple implementation of a paycheque calculator. 
