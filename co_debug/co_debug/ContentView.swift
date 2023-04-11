@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    // variables
     @State private var hourlyRate: String = ""
     @State private var regularHours: String = ""
     @State private var regularOvertimeHours: String = ""
@@ -19,12 +21,14 @@ struct ContentView: View {
     
     // Add toggle for regular overtime
     @State private var regularOvertime: Bool = false
-    
     @State private var showSummary: Bool = false
     
     var body: some View {
+
         NavigationView {
+
             Form {
+
                 Section(header: Text("Hourly Rate")) {
                     TextField("Enter your hourly rate ($)", text: $hourlyRate)
                         .keyboardType(.decimalPad)
@@ -70,9 +74,8 @@ struct ContentView: View {
                 Section(header: Text("Tax Rate")) {
                     TextField("Enter your tax rate (%)", text: $taxRate)
                         .keyboardType(.numberPad)
-                } // end of tax section
+                } 
 
-                
                 // updated code to center button
                 Button(action: {
                     self.showSummary = true
@@ -80,24 +83,16 @@ struct ContentView: View {
                     Text("Calculate")
                         .frame(minWidth: 0, maxWidth: .infinity)
                 }
-                // end of update to center button
-                // original code:
-                /*Button(action: {
-                    self.showSummary = true
-                }) {
-                    Text("Calculate")
-                }*/
             }
-            .navigationTitle("Hours Calculator")
-        }
-        /*.sheet(isPresented: $showSummary) {
-            SummaryView(hourlyRate: self.$hourlyRate, regularHours: self.$regularHours, regularOvertimeHours: self.$regularOvertimeHours, holidayOvertimeHours: self.$holidayOvertimeHours, workedStatHoliday: self.$workedStatHoliday, regularOvertimeRate: self.$regularOvertimeRate, holidayOvertimeRate: self.$holidayOvertimeRate, regularOvertime: self.$regularOvertime)
 
-        } */ // <- original
+            // main title
+            .navigationTitle("Paycheque Calculator")
+        }
+        
         // tax sheet
         .sheet(isPresented: $showSummary) {
             SummaryView(hourlyRate: self.$hourlyRate, regularHours: self.$regularHours, regularOvertimeHours: self.$regularOvertimeHours, holidayOvertimeHours: self.$holidayOvertimeHours, workedStatHoliday: self.$workedStatHoliday, regularOvertimeRate: self.$regularOvertimeRate, holidayOvertimeRate: self.$holidayOvertimeRate, regularOvertime: self.$regularOvertime, taxRate: self.$taxRate)
-        } // end of tax sheet
+        }
     }
 }
 

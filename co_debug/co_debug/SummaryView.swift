@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SummaryView: View {
+    
     @Environment(\.presentationMode) var presentationMode
     
     @Binding var hourlyRate: String
@@ -107,9 +108,6 @@ struct SummaryView: View {
 }
 
 struct SummaryView_Previews: PreviewProvider {
-    /*static var previews: some View {
-        SummaryView(hourlyRate: .constant("25"), regularHours: .constant("40"), regularOvertimeHours: .constant("5"), holidayOvertimeHours: .constant("0"), workedStatHoliday: .constant(false), regularOvertimeRate: .constant("1.5"), holidayOvertimeRate: .constant("2"), regularOvertime: .constant(true))*/
-        
     static var previews: some View {
         SummaryView(hourlyRate: .constant("25"), regularHours: .constant("40"), regularOvertimeHours: .constant("5"), holidayOvertimeHours: .constant("0"), workedStatHoliday: .constant(false), regularOvertimeRate: .constant("1.5"), holidayOvertimeRate: .constant("2"), regularOvertime: .constant(true), taxRate: .constant("25"))
     }
